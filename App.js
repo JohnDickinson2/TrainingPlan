@@ -1,10 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useState } from "react";
 
 export default function App() {
+  const [textString, setTextString] = useState("First Value");
+
+  const func = () => {
+    if (textString == "First Value") {
+      setTextString("Second Value");
+    } else {
+      setTextString("First Value");
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>{textString}</Text>
+      <Button title="Hello World" onPress={func}></Button>
       <StatusBar style="auto" />
     </View>
   );
