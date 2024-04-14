@@ -8,12 +8,16 @@ import {
   Switch,
 } from 'react-native';
 import React, { useState } from 'react';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 function createProfile(BenchTM, SquatTM, DeadliftTM, PressTM) {
   return { BenchTM, SquatTM, DeadliftTM, PressTM };
 }
 
-export default function App() {
+const TMScreen = ({ navigation }) => {
   const [profile, setProfile] = useState(createProfile(0, 0, 0, 0));
   const [tempProfile, setTempProfile] = useState(createProfile(0, 0, 0, 0));
   const [choice, setChoice] = useState('BenchTM');
@@ -68,6 +72,7 @@ export default function App() {
           onChangeText={(weight) => {
             setTempProfile({ ...profile, [choice]: weight });
           }}
+          inputMode="numeric"
           style={{
             backgroundColor: '#cccccc',
             width: '70%',
@@ -85,7 +90,26 @@ export default function App() {
       <Text>Squat Training Max: {profile.SquatTM} KG</Text>
       <Text>Press Training Max: {profile.PressTM} KG</Text>
       <Text>Deadlift Training Max: {profile.DeadliftTM} KG</Text>
+      <Button
+        title="Confirm"
+        onPress={() => navigation.navigate('LiftScreen')}
+      ></Button>
     </View>
+  );
+};
+
+const LiftScreen = ({ navigation }) => {
+  return <Text>LiftScreen</Text>;
+};
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="TMScreen" component={TMScreen} />
+        <Stack.Screen name="LiftScreen" component={LiftScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
