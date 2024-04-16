@@ -1,21 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  Switch,
-} from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import React, { useState } from 'react';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 function createProfile(BenchTM, SquatTM, DeadliftTM, PressTM) {
   return { BenchTM, SquatTM, DeadliftTM, PressTM };
 }
 
-export const TMScreenComponent = ({ navigation }) => {
+export const TMScreenContainer = ({ navigation }) => {
   const [profile, setProfile] = useState(createProfile(0, 0, 0, 0));
   const [tempProfile, setTempProfile] = useState(createProfile(0, 0, 0, 0));
   const [choice, setChoice] = useState('BenchTM');
@@ -90,7 +81,7 @@ export const TMScreenComponent = ({ navigation }) => {
       <Text>Deadlift Training Max: {profile.DeadliftTM} KG</Text>
       <Button
         title="Confirm"
-        onPress={() => navigation.navigate('LiftScreen')}
+        onPress={() => navigation.navigate('LiftScreen', { profile: profile })}
       ></Button>
     </View>
   );
